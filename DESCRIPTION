@@ -8,7 +8,7 @@ Maintainer:	Sjoerd Vosse <info@vossewebdevelopment.nl>
 Depends:	R (>= 2.4.0), methods, Biobase (>= 2.5.3), marray
 Description:	Contains functions and classes that are needed by arrayCGH packages.
 License:	GPL (http://www.gnu.org/copyleft/gpl.html)
-biocViews:	Infrastructure, Microarray, DNACopyNumber
+biocViews:	Infrastructure, Microarray, CopyNumberVariants
 Collate:	allGeneric.R classes.R private.R tools.R zzz.R
 		methods-cghRaw.R methods-cghSeg.R methods-cghCall.R
 		methods-cghRegions.R
