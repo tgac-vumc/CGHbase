@@ -86,7 +86,9 @@
 \author{Sjoerd Vosse}
 
 \seealso{
-  \code{\link[Biobase]{eSet-class}}, \code{\link{cghRaw-class}}, \code{\link{cghCall-class}}
+  \code{\link[Biobase:class.eSet]{eSet-class}},
+  \code{\link[Biobase:class.ExpressionSet]{ExpressionSet-class}},
+  \code{\link{cghRaw-class}}, \code{\link{cghCall-class}} 
 }
 
 \examples{
