@@ -3,7 +3,7 @@
 \alias{WiltingNorm}
 \title{Normalized log2 ratios from cervical cancer arrayCGH data.}
 \description{
-  Normalized log2 ratios frm cervical cancer arrayCGH data, containing 3552 features for 5 samples. These data have been normalized using the \code{\link[cghCall]{normalize}} function with default settings.
+  Normalized log2 ratios frm cervical cancer arrayCGH data, containing 3552 features for 5 samples. These data have been normalized using the \code{\link[CGHcall]{normalize}} function with default settings.
 }
 \usage{WiltingCalled}
 \format{
