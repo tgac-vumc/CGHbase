@@ -35,16 +35,15 @@ function (x, y, ... )
 })
 
 setValidity("cghRaw", function(object) {
-    msg <- NULL
-    msg <- Biobase:::validMsg(msg, Biobase:::isValidVersion(object, "cghRaw"))
+    msg <- Biobase:::validMsg(NULL, Biobase:::isValidVersion(object, "cghRaw"))
     msg <- Biobase:::validMsg(msg, Biobase:::assayDataValidMembers(assayData(object), c("copynumber")))
     msg <- Biobase:::validMsg(msg, CGHbase:::.featureDataRequiredColumns(featureData(object), c("Chromosome", "Start", "End")))
     if (is.null(msg)) TRUE else msg
 })
 
-setMethod("chromosomes",    "cghRaw", function(object) pData(featureData(object))[,"Chromosome"])
-setMethod("bpstart",        "cghRaw", function(object) pData(featureData(object))[,"Start"])
-setMethod("bpend",          "cghRaw", function(object) pData(featureData(object))[,"End"])
+setMethod("chromosomes", "cghRaw", function(object) pData(featureData(object))[,"Chromosome"])
+setMethod("bpstart",     "cghRaw", function(object) pData(featureData(object))[,"Start"])
+setMethod("bpend",       "cghRaw", function(object) pData(featureData(object))[,"End"])
 
 setMethod("copynumber", signature(object="cghRaw"),
         function(object) Biobase:::assayDataElement(object, "copynumber"))

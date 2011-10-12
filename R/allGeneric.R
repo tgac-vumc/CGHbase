@@ -36,3 +36,5 @@ setGeneric("nclone",            function(object)        standardGeneric("nclone"
 setGeneric("avedist",           function(object)        standardGeneric("avedist"))
 setGeneric("regions",           function(object)        standardGeneric("regions"))
 setGeneric("regions<-",         function(object, value) standardGeneric("regions<-"))
+
+#setGeneric("plot",          function(x, y, ...) standardGeneric("plot"), useAsDefault=plot)

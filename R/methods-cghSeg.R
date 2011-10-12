@@ -17,16 +17,18 @@ setMethod("initialize", "cghSeg",
 })
 
 setMethod("plot.cghSeg", signature(x="cghSeg", y="missing"),
-function (x, y, ... )
+function (x, y, dotres=10, ylimit=c(-2,5),... )
 {
     for (i in 1:ncol(x)) {
         cat("Plotting sample", sampleNames(x)[i], "\n")
-        segment         <- CGHbase:::.makeSegments(cbind(chromosomes(x), segmented(x)[,i]))
+        segment         <- CGHbase:::.makeSegments(segmented(x)[,i],chromosomes(x))
         chrom           <- chromosomes(x)
         data            <- data.frame(chrom, bpstart(x), copynumber(x)[,i])
         colnames(data)  <- c("chromosome", "position", "ratio")
         chrom.labels    <- as.character(unique(chrom))
-        plot(data[,3], pch=".", main=sampleNames(x)[i], ylab="log2ratio", xlab="chromosomes", ylim=c(-2,5), xaxt="n", xaxs="i")
+        nclone <- length(chrom)
+        whichtoplot <- seq(1,nclone,by=dotres) #added 15/06/2009
+        plot(whichtoplot,data[whichtoplot,3], pch=".", main=paste(sampleNames(x)[i]," Plot resolution: 1/",dotres), ylab="log2ratio", xlab="chromosomes", ylim=ylimit, xaxt="n", xaxs="i")
         abline(h=0) 
         for (iii in 1:length(cumsum(table(chrom)))) {
             segments(cumsum(table(chrom))[[iii]],-5,cumsum(table(chrom))[[iii]],5,lty=2)
@@ -40,16 +42,15 @@ function (x, y, ... )
 })
 
 setValidity("cghSeg", function(object) {
-    msg <- NULL
-    msg <- Biobase:::validMsg(msg, Biobase:::isValidVersion(object, "cghSeg"))
+    msg <- Biobase:::validMsg(NULL, Biobase:::isValidVersion(object, "cghSeg"))
     msg <- Biobase:::validMsg(msg, Biobase:::assayDataValidMembers(assayData(object), c("copynumber", "segmented")))
     msg <- Biobase:::validMsg(msg, CGHbase:::.featureDataRequiredColumns(featureData(object), c("Chromosome", "Start", "End")))
     if (is.null(msg)) TRUE else msg
 })
 
 setMethod("chromosomes", "cghSeg", function(object) pData(featureData(object))[,"Chromosome"])
-setMethod("bpstart", "cghSeg", function(object) pData(featureData(object))[,"Start"])
-setMethod("bpend", "cghSeg", function(object) pData(featureData(object))[,"End"])
+setMethod("bpstart",     "cghSeg", function(object) pData(featureData(object))[,"Start"])
+setMethod("bpend",       "cghSeg", function(object) pData(featureData(object))[,"End"])
 
 setMethod("copynumber", signature(object="cghSeg"),
         function(object) Biobase:::assayDataElement(object, "copynumber"))
@@ -61,4 +62,4 @@ setMethod("segmented", signature(object="cghSeg"),
         function(object) Biobase:::assayDataElement(object, "segmented"))
         
 setReplaceMethod("segmented", signature(object="cghSeg", value="matrix"),
-                function(object, value) assayDataElementReplace(object, "segmented", value))  
+                function(object, value) assayDataElementReplace(object, "segmented", value))

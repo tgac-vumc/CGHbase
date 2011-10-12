@@ -122,7 +122,10 @@
        set elements named \code{probgain} in the \code{AssayData-class}
        slot.}
      \item{\code{chromosomes}, \code{bpstart}, \code{bpend}}{Access the chromosomal positions stored in \code{featureData}}
-     \item{plot.cghCall}{Create a plot containing log2ratios, segments and call probabilities ordered by chromosomal position}
+      \item{plot}{Create a plot containing log2ratios, segments and call probabilities ordered by chromosomal 
+     position. TWO EXTRA OPTIONS PLUS DEFAULTS: 
+     dotres=10. Every dotres-th log2-ratio is plotted. dotres=1 plots all data. However, higher values save a lot of space and 
+     allow quicker browsing of the plots. ylimit=c(-5,5): limits of the y-axis}
      \item{summaryPlot}{Create a plot summarizing the call probabilities of all samples}
     }
 
@@ -144,10 +147,10 @@
 	data(WiltingCalled)
   
   # plot the first sample
-  plot.cghCall(WiltingCalled[,1])
+  plot(WiltingCalled[,1])
   
   # plot the first chromosome of the first sample
-  plot.cghCall(WiltingCalled[chromosomes(WiltingCalled)==1,1])
+  plot(WiltingCalled[chromosomes(WiltingCalled)==1,1])
 
   # get the copynumber values of the third and fourth sample
   log2ratios <- copynumber(WiltingCalled[,3:4])

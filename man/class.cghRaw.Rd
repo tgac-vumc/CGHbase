@@ -97,9 +97,9 @@
 	cghobj <- cghRaw(WiltingData)
 	
 	# plot the first sample
-	plot.cghRaw(cghobj[,1])
+	plot(cghobj[,1])
 	# first three chromosomes
-	plot.cghRaw(cghobj[chromosomes(cghobj)==1,1])
+	plot(cghobj[chromosomes(cghobj)==1,1])
 	
 	# get the copynumber values of the third and fourth sample
 	log2ratios <- copynumber(cghobj[,3:4])

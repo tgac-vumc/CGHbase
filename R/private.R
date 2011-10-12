@@ -43,24 +43,25 @@
     new("AnnotatedDataFrame", data=data, dimLabels=dimLabels, varMetadata=metadata)                  
 }
 
-.makeSegments <- function(data) {
-    if (class(data) != "matrix") {
-        cat("Wrong data class for input to function CGHbase:::.makeSegments in file private.R\n")
-    }
+.makeSegments <- function(data,chrdata) {
     previous    <- 2000
+    chrpr       <- -100
     values      <- c()
     start       <- c()
     end         <- c()
-    for (i in 1:nrow(data)) {
-        if (!all(data[i,] == previous)) {
+    el          <- length(data)
+    data <- c(data,-10000) #add value to allow data[i+1]
+    for (i in 1:el) {
+        if ((data[i] != previous & previous != data[i+1]) | chrdata[i] != chrpr) { #bug repaired 12/06/09
             start   <- c(start, i)
             last    <- i - 1
             if (last > 0) end <- c(end, last)
-            values  <- c(values, data[i,2])
+            values  <- c(values, data[i])
         }
-        previous    <- data[i,]
+        previous    <- data[i]
+        chrpr <- chrdata[i]
     }
-    end     <- c(end, nrow(data))
+    end     <- c(end, el)
     result  <- cbind(values, start, end)
     result
 }

@@ -100,9 +100,9 @@
 	data(WiltingSeg)
 
 	# plot the first sample
-	# plot.cghSeg(WiltingSeg[,1])
+	# plot(WiltingSeg[,1])
 	# first three chromosomes
-	# plot.cghSeg(WiltingSeg[chromosomes(WiltingSeg)==1,1])
+	# plot(WiltingSeg[chromosomes(WiltingSeg)==1,1])
 	
 	# get the copynumber values of the third and fourth sample
 	log2ratios <- copynumber(WiltingSeg[,3:4])

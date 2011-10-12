@@ -2,7 +2,7 @@ setMethod("initialize", "cghCall",
         function(.Object,
                 assayData       = assayDataNew(copynumber=copynumber, segmented=segmented, calls=calls, probloss=probloss, probnorm=probnorm, probgain=probgain, ...),
                 phenoData       = annotatedDataFrameFrom(assayData, byrow=FALSE),
-                featureData     = CGHbase:::.makeEmptyFeatureData(assayData),
+                featureData     = .makeEmptyFeatureData(assayData),
                 experimentData  = new("MIAME"),
                 annotation      = character(),
                 copynumber      = new("matrix"),
@@ -21,8 +21,7 @@ setMethod("initialize", "cghCall",
 })
 
 setValidity("cghCall", function(object) {
-    msg <- NULL
-    msg <- Biobase:::validMsg(msg, Biobase:::isValidVersion(object, "cghCall"))
+    msg <- Biobase:::validMsg(NULL, Biobase:::isValidVersion(object, "cghCall"))
     msg <- Biobase:::validMsg(msg, Biobase:::assayDataValidMembers(assayData(object), c("copynumber", 
                                                                                         "segmented", 
                                                                                         "calls", 
@@ -35,13 +34,11 @@ setValidity("cghCall", function(object) {
 })
 
 setMethod("plot.cghCall", signature(x="cghCall", y="missing"),
-function (x, y, ... )
+function (x, y, dotres=10, ylimit=c(-5,5),... )
 {
-
     calls           <- calls(x)
     nsamples        <- ncol(x)
-    if (!is.null(probamp(x))) nclass <- 4
-    else nclass     <- 3
+    if (!is.null(probamp(x))) nclass <- 4 else nclass     <- 3
     chrom           <- chromosomes(x)
     chrom.labels    <- unique(chrom)
     nclone          <- length(chrom)
@@ -59,22 +56,22 @@ function (x, y, ... )
             ticksamp    <- which(probsdraw[,nclass] >= 0.5)
             lt          <- length(ticksamp)        
             probsdraw   <- cbind(probsdraw[,1:2], probsdraw[,3] + probsdraw[,4])
-        }     
-           
-        segment         <- CGHbase:::.makeSegments(cbind(chromosomes(x), segmented(x)[,i]))
+        }
+        
+        segment         <- CGHbase:::.makeSegments(segmented(x)[,i],chromosomes(x))
         
         widths          <- segment[,3] - segment[,2] + 1
-        plot.data       <- unique(probsdraw)
-    
+        #plot.data       <- unique(probsdraw)
+        plot.data <- probsdraw[segment[,2],]
         par(mar=c(5, 4, 4, 4) + 0.2)
         
         ### Plot the probability bars
         barplot(t(plot.data), width=widths, border=F, space=0, col=c("red","white","green"), las=1, cex.axis=1, cex.lab=1, xaxt="n")
         
         lim <- par("usr")
-        lim[3:4] <- c(-5, 5)
+        lim[3:4] <- ylimit
         par(usr=lim)
-        dticks <- seq(-5, 5, by=1)
+        dticks <- seq(ylimit[1], ylimit[2], by=1)
         axis(4, at=dticks, labels=dticks, srt=270, las=1, cex.axis=1, cex.lab=1)
         if (lt > 0) {
             axis(3,at=ticksamp, labels=FALSE, col = "blue", col.axis="black", srt=270, las=1, cex.axis=1, cex.lab=1)
@@ -88,13 +85,14 @@ function (x, y, ... )
         #### add vert lines at chromosome ends
         abline(h=0) 
         for (iii in 1:length(cumsum(table(chrom)))) {
-            segments(cumsum(table(chrom))[[iii]], -5, cumsum(table(chrom))[[iii]], 5, lty=2)
+            segments(cumsum(table(chrom))[[iii]], ylimit[1], cumsum(table(chrom))[[iii]], ylimit[2], lty=2)
         }
         
-        title(sampleNames(x)[i])
+        title(paste(sampleNames(x)[i]," Plot resolution: 1/",dotres))
         
         ### Add log2ratios
-        points((1:nclone)-.5,genomdat,cex=.1)
+        whichtoplot <- seq(1,nclone,by=dotres) #added 15/06/2009
+        points(whichtoplot-.5,genomdat[whichtoplot],cex=.1)
         
         ### X-axis with chromosome labels
         ax<-(cumsum(table(chrom))+c(0, cumsum(table(chrom))[-length(cumsum(table(chrom)))]))/2
@@ -112,10 +110,9 @@ function (x, y, ... )
     
     calls           <- calls(x)
     n.sam           <- ncol(x)
-    if (!is.null(probamp(x))) nclass <- 4
-    else nclass     <- 3
+    if (!is.null(probamp(x))) nclass <- 4 else nclass     <- 3
     chrom           <- chromosomes(x)
-    
+
     nclone          <- length(chrom)
     chrom.labels    <- as.character(unique(chrom))
     
@@ -168,8 +165,8 @@ function (x, y, ... )
 })
 
 setMethod("chromosomes", "cghCall", function(object) pData(featureData(object))[,"Chromosome"])
-setMethod("bpstart", "cghCall", function(object) pData(featureData(object))[,"Start"])
-setMethod("bpend", "cghCall", function(object) pData(featureData(object))[,"End"])
+setMethod("bpstart",     "cghCall", function(object) pData(featureData(object))[,"Start"])
+setMethod("bpend",       "cghCall", function(object) pData(featureData(object))[,"End"])
 
 setMethod("copynumber", signature(object="cghCall"),
         function(object) Biobase:::assayDataElement(object, "copynumber"))

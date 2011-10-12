@@ -83,7 +83,7 @@
 \author{Sjoerd Vosse}
 
 \seealso{
-  \code{\link[Biobase:class.eSet]{eSet}}, \code{\link[CGHcall:class.cghRaw]{cghRaw}}, \code{\link[CGHcall:class.cghSeg]{cghSeg}}, \code{\link[CGHcall:class.cghCall]{cghCall}}
+  \code{\link[Biobase:class.eSet]{eSet}}, \code{\link{cghRaw-class}}, \code{\link{cghSeg-class}}, \code{\link{cghCall-class}}
 }
 
 \examples{
@@ -95,7 +95,7 @@
 	data(WiltingRegions)
 		
 	# plot all region data
-	plot.cghRegions(WiltingRegions)
+	plot(WiltingRegions)
 	# make a frequency plot
 	frequencyPlot(WiltingRegions)
 	

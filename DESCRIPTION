@@ -1,14 +1,14 @@
 Package:	CGHbase
 Type:		Package
 Title:		CGHbase: Base functions and classes for arrayCGH data analysis.
-Version: 1.11.0
-Date:		2009-10-19
+Version:        1.11.1
+Date:		2011-10-10
 Author:		Sjoerd Vosse
 Maintainer:	Sjoerd Vosse <info@vossewebdevelopment.nl>
 Depends:	R (>= 2.4.0), methods, Biobase (>= 2.5.5), marray
 Description:	Contains functions and classes that are needed by arrayCGH packages.
 License:	GPL
 biocViews:	Infrastructure, Microarray, CopyNumberVariants
-Collate:	allGeneric.R classes.R private.R tools.R zzz.R
+Collate:	allGeneric.R classes.R private.R tools.R
 		methods-cghRaw.R methods-cghSeg.R methods-cghCall.R
 		methods-cghRegions.R
