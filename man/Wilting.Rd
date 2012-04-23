@@ -1,6 +1,6 @@
-\name{WiltingData}
+\name{Wilting}
 \docType{data}
-\alias{WiltingData}
+\alias{Wilting}
 \title{Cervical cancer arrayCGH data}
 \description{
   A dataframe containing 4709 rows and 8 columns with arrayCGH data.
