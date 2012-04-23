@@ -13,7 +13,7 @@
 \alias{bpend,cghRaw-method}
 
 \alias{initialize,cghRaw-method}
-\alias{plot.cghRaw,cghRaw,missing-method}
+\alias{plot,cghRaw,missing-method}
 
 \title{
   Class to contain and describe raw or normalized array comparative genomic hybridization data.
@@ -22,12 +22,12 @@
 \description{
   Container for aCGH data and experimental
   metadata. \code{cghRaw} class is derived from
-  \code{\link[Biobase:class.eSet]{eSet}}, and requires a matrix named \code{copynumber} as
+  \code{\link[Biobase]{eSet}}, and requires a matrix named \code{copynumber} as
   assayData member. Furthermore, columns named \code{Chromosome}, \code{Start}, and \code{End}
   are required as featureData members, containing feature position information.
 }
 \section{Extends}{
-   Directly extends class \code{\link[Biobase:class.eSet]{eSet}}.
+   Directly extends class \code{\link[Biobase]{eSet}}.
 }
 \section{Creating Objects}{
 
@@ -59,13 +59,13 @@
 	\code{copynumber} with rows represening array probes
 	and columns representing samples. Additional matrices of
 	identical size (e.g., representing measurement errors) may
-	also be included in \code{assayData}. Class:\code{\link[Biobase:class.AssayData]{AssayData-class}}}
-      \item{\code{phenoData}:}{See \code{\link[Biobase:class.eSet]{eSet}}}
-      \item{\code{featureData}:}{An \code{\link[Biobase:class.AnnotatedDataFrame]{AnnotatedDataFrame}} with columns
+	also be included in \code{assayData}. Class:\code{\link[Biobase]{AssayData-class}}}
+      \item{\code{phenoData}:}{See \code{\link[Biobase]{eSet}}}
+      \item{\code{featureData}:}{An \code{\link[Biobase]{AnnotatedDataFrame}} with columns
 	\code{Chromosome}, \code{Start}, and \code{End} containing array element position 
 	data.}
-      \item{\code{experimentData}:}{See \code{\link[Biobase:class.eSet]{eSet}}}
-      \item{\code{annotation}:}{See \code{\link[Biobase:class.eSet]{eSet}}}
+      \item{\code{experimentData}:}{See \code{\link[Biobase]{eSet}}}
+      \item{\code{annotation}:}{See \code{\link[Biobase]{eSet}}}
   }
 }
 \section{Methods}{
@@ -76,38 +76,38 @@
        set elements named \code{copynumber} in the \code{AssayData-class}
        slot.}
      \item{\code{chromosomes}, \code{bpstart}, \code{bpend}}{Access the chromosomal positions stored in \code{featureData}}
-     \item{plot.cghRaw}{Create a plot containing log2ratios ordered by chromosomal position}
+     \item{plot}{Create a plot containing log2ratios ordered by chromosomal position}
     }
 
-   See \code{\link[Biobase:class.eSet]{eSet}} for derived methods. Annotation functionality is not yet supported.   
+   See \code{\link[Biobase]{eSet}} for derived methods. Annotation functionality is not yet supported.   
 }
 
 \author{Sjoerd Vosse}
 
 \seealso{
-  \code{\link[Biobase:class.eSet]{eSet-class}}, \code{\link{cghSeg-class}}, \code{\link{cghCall-class}}
+  \code{\link[Biobase]{eSet-class}}, \code{\link{cghSeg-class}}, \code{\link{cghCall-class}}
 }
 
 \examples{
-	# create an instance of cghRaw
-	new("cghRaw")
-	
-	# create an instance of cghRaw from a dataframe
-	data(WiltingData)
-	cghobj <- cghRaw(WiltingData)
-	
-	# plot the first sample
-	plot(cghobj[,1])
-	# first three chromosomes
-	plot(cghobj[chromosomes(cghobj)==1,1])
-	
-	# get the copynumber values of the third and fourth sample
-	log2ratios <- copynumber(cghobj[,3:4])
-	
-	# get the names of the samples
-	sampleNames(cghobj)
-	
-	# get the names of the array elements
-	featureNames(cghobj)
+# create an instance of cghRaw
+new("cghRaw")
+
+# create an instance of cghRaw from a dataframe
+data(Wilting)
+rawcgh <- make_cghRaw(Wilting)
+
+# plot the first sample
+plot(rawcgh[,1])
+# first three chromosomes
+plot(rawcgh[chromosomes(rawcgh)==1,1])
+
+# get the copynumber values of the third and fourth sample
+log2ratios <- copynumber(rawcgh[,3:4])
+
+# get the names of the samples
+sampleNames(rawcgh)
+
+# get the names of the array elements
+featureNames(rawcgh)
 }
 \keyword{classes}

@@ -1,21 +1,24 @@
-\name{summaryPlot}
-\alias{summaryPlot}
+\name{frequencyPlotCalls}
+\alias{frequencyPlotCalls}
 \title{ Visualization of aCGH profiles. }
 \description{
-  This function creates a summary plot for aCGH profiles.
+  This function creates a frequency plot for aCGH profiles.
 }
 \usage{
-	summaryPlot(x, y, ...)
+	frequencyPlotCalls(x,main='Frequency Plot', gaincol='blue', losscol='red', misscol=NA, build='GRCh37', ...)
 }
 \arguments{
   \item{x}{ An object of class \code{\link{cghCall}}.}
-  \item{y}{ This argument is not used and should be missing. }
+  \item{main}{Title of plot}
+  \item{gaincol}{Color to use for gains}
+  \item{losscol}{Color to use for losses}
+  \item{misscol}{Missings}
+  \item{build}{Build of Humane Genome.Either \code{GRCh37}, \code{GRCh36}, \code{GRCh35} or \code{GRCh34}}
   \item{\dots}{ Arguments \code{plot}. }
 }
 \details{
-  We find plotted on the x-axis the array probes sorted by chromosomal position. The vertical bars represent the 
-  average probability that the positions they cover are gained (green bars) or lost (red bars). The green bars represent gains, 
-  the red bars represent losses.  
+  We find plotted on the x-axis the array probes sorted by chromosomal position. 
+  The vertical bars represent the frequency of gains or losses. 
 }
 \value{
   This function creates a plot.
@@ -26,12 +29,12 @@
 \author{ Sjoerd Vosse & Mark van de Wiel }
 \examples{
 	 \dontrun{
-  data(Wilting)
+   data(Wilting)
    rawcgh <- make_cghSeg(Wilting)
    normalized <- normalize(rawcgh)
    segmented <- segmentData(normalized)
    called <- CGHcall(segmented,cellularity= rep(0.75, 3))
-   plot.summary(called)
+   frequencyPlotCalls(called)
    }
 }
 \keyword{ misc }

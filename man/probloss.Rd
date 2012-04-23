@@ -1,8 +1,10 @@
 \name{probloss}
+\alias{probdloss}
 \alias{probloss}
 \alias{probnorm}
 \alias{probgain}
 \alias{probamp}
+\alias{probdloss<-}
 \alias{probloss<-}
 \alias{probnorm<-}
 \alias{probgain<-}
@@ -14,6 +16,8 @@
   stored in a object derived from the \code{\link{cghCall-class}}.
 }
 \usage{
+probdloss(object)
+probdloss(object) <- value
 probloss(object)
 probloss(object) <- value
 probnorm(object)
@@ -28,7 +32,7 @@ probamp(object) <- value
   \item{value}{Matrix with rows representing features and columns samples.}
 }
 \value{
-  These functions return matrices of call probabilities.
+  \code{probloss} returns matrix of call probabilities;
 }
 \author{Sjoerd Vosse}
 

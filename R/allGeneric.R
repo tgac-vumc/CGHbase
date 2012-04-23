@@ -19,6 +19,8 @@ setGeneric("plot.cghCall",  function(x, y, ...)     standardGeneric("plot.cghCal
 setGeneric("summaryPlot",   function(x, y, ...)     standardGeneric("summaryPlot"))
 setGeneric("calls",         function(object)        standardGeneric("calls"))
 setGeneric("calls<-",       function(object, value) standardGeneric("calls<-"))
+setGeneric("probdloss",      function(object) standardGeneric("probdloss"))
+setGeneric("probdloss<-",    function(object, value) standardGeneric("probdloss<-"))
 setGeneric("probloss",      function(object)        standardGeneric("probloss"))
 setGeneric("probloss<-",    function(object, value) standardGeneric("probloss<-"))
 setGeneric("probnorm",      function(object)        standardGeneric("probnorm"))
@@ -38,3 +40,4 @@ setGeneric("regions",           function(object)        standardGeneric("regions
 setGeneric("regions<-",         function(object, value) standardGeneric("regions<-"))
 
 #setGeneric("plot",          function(x, y, ...) standardGeneric("plot"), useAsDefault=plot)
+setGeneric("plot",          function(x, y, ...) standardGeneric("plot"), useAsDefault=plot)

@@ -11,6 +11,8 @@
 \alias{segmented<-,cghCall,matrix-method}
 \alias{calls,cghCall-method}
 \alias{calls<-,cghCall,matrix-method}
+\alias{probdloss,cghCall-method}
+\alias{probdloss<-,cghCall,matrix-method}
 \alias{probloss,cghCall-method}
 \alias{probloss<-,cghCall,matrix-method}
 \alias{probnorm,cghCall-method}
@@ -25,8 +27,10 @@
 \alias{bpend,cghCall-method}
 
 \alias{initialize,cghCall-method}
-\alias{plot.cghCall,cghCall,missing-method}
-\alias{summaryPlot,cghCall,missing-method}
+\alias{plot,cghCall,missing-method}
+\alias{plot.summary,cghCall,missing-method}
+\alias{frequencyPlotCalls,cghCall,missing-method}
+
 
 \title{
   Class to contain and describe called array comparative genomic hybridization data.
@@ -35,22 +39,21 @@
 \description{
   Container for aCGH data and experimental
   metadata. \code{cghCall} class is derived from
-  \code{\link[Biobase:class.eSet]{eSet}}, and requires the following matrices of equal dimension
+  \code{\link[Biobase]{eSet}}, and requires the following matrices of equal dimension
   as assayData members:
   \itemize{
-	\item \code{copynumber} Log2 copynumber ratios.
-	\item \code{segmented}	Segmented log2 ratios.
-	\item \code{calls}		  Called copynumer values.
-	\item \code{probloss}		Loss probabilities as returned by \code{\link[CGHcall]{CGHcall}}.
-	\item \code{probnorm}		Normal probabilities as returned by \code{\link[CGHcall]{CGHcall}}.
-	\item \code{probgain}		Gain probabilities as returned by \code{\link[CGHcall]{CGHcall}}.
-	\item \code{probamp}		Optional amplification probabilities as returned by \code{\link[CGHcall]{CGHcall}} when run with \code{nclass=4}.
+    \item \code{copynumber}
+    \item \code{segmented}
+    \item \code{calls}
+    \item \code{probloss}
+    \item \code{probnorm}
+    \item \code{probgain}
   }
   Furthermore, columns named \code{Chromosome}, \code{Start}, and \code{End} are 
   required as featureData members, containing feature position information.
 }
 \section{Extends}{
-   Directly extends class \code{\link[Biobase:class.eSet]{eSet}}.
+   Directly extends class \code{\link[Biobase]{eSet}}.
 }
 \section{Creating Objects}{
 
@@ -69,34 +72,33 @@
   }
 
   An object of class \code{cghCall} is generally obtained as output
-  from \code{\link[CGHcall]{CGHcall}}.
+  from \code{\link{CGHcall}}.
 
 }
 \section{Slots}{
   Inherited from \code{eSet}:
    \describe{
       \item{\code{assayData}:}{Contains matrices with equal
-	dimensions, and with column number equal to
-	\code{nrow(phenoData)}. \code{assayData} must contain the following matrices
-  \itemize{
-	\item \code{copynumber} Log2 copynumber ratios.
-	\item \code{segmented}	Segmented log2 ratios.
-	\item \code{calls}		  Called copynumer values.
-	\item \code{probloss}		Loss probabilities as returned by \code{\link[CGHcall]{CGHcall}}.
-	\item \code{probnorm}		Normal probabilities as returned by \code{\link[CGHcall]{CGHcall}}.
-	\item \code{probgain}		Gain probabilities as returned by \code{\link[CGHcall]{CGHcall}}.
-	\item \code{probamp}		Optional amplification probabilities as returned by \code{\link[CGHcall]{CGHcall}} when run with \code{nclass=4}.
-  }	
-  with rows represening array probes
-	and columns representing samples. Additional matrices of
-	identical size (e.g., representing measurement errors) may
-	also be included in \code{assayData}. Class:\code{\link[Biobase:class.AssayData]{AssayData-class}}}
-      \item{\code{phenoData}:}{See \code{\link[Biobase:class.eSet]{eSet}}}
-      \item{\code{featureData}:}{An \code{\link[Biobase:class.AnnotatedDataFrame]{AnnotatedDataFrame}} with columns
-	\code{Chromosome}, \code{Start}, and \code{End} containing array element position 
-	data.}
-      \item{\code{experimentData}:}{See \code{\link[Biobase:class.eSet]{eSet}}}
-      \item{\code{annotation}:}{See \code{\link[Biobase:class.eSet]{eSet}}}
+    dimensions, and with column number equal to
+    \code{nrow(phenoData)}. \code{assayData} must contain the following matrices
+    \itemize{
+        \item \code{copynumber}
+        \item \code{segmented}
+        \item \code{calls}
+        \item \code{probloss}
+        \item \code{probnorm}
+        \item \code{probgain}
+    }   
+    with rows represening array probes
+    and columns representing samples. Additional matrices of
+    identical size (e.g., representing measurement errors) may
+    also be included in \code{assayData}. Class:\code{\link[Biobase]{AssayData-class}}}
+      \item{\code{phenoData}:}{See \code{\link[Biobase]{eSet}}}
+      \item{\code{featureData}:}{An \code{\link[Biobase]{AnnotatedDataFrame}} with columns
+    \code{Chromosome}, \code{Start}, and \code{End} containing array element position 
+    data.}
+      \item{\code{experimentData}:}{See \code{\link[Biobase]{eSet}}}
+      \item{\code{annotation}:}{See \code{\link[Biobase]{eSet}}}
   }
 }
 \section{Methods}{
@@ -122,44 +124,52 @@
        set elements named \code{probgain} in the \code{AssayData-class}
        slot.}
      \item{\code{chromosomes}, \code{bpstart}, \code{bpend}}{Access the chromosomal positions stored in \code{featureData}}
-      \item{plot}{Create a plot containing log2ratios, segments and call probabilities ordered by chromosomal 
-     position. TWO EXTRA OPTIONS PLUS DEFAULTS: 
+     \item{plot}{Create a plot containing log2ratios, segments and call probabilities ordered by chromosomal 
+     position. EXTRA OPTIONS PLUS DEFAULTS: 
      dotres=10. Every dotres-th log2-ratio is plotted. dotres=1 plots all data. However, higher values save a lot of space and 
-     allow quicker browsing of the plots. ylimit=c(-5,5): limits of the y-axis}
-     \item{summaryPlot}{Create a plot summarizing the call probabilities of all samples}
+     allow quicker browsing of the plots. ylimit=c(-5,5): limits of the y-axis. 
+     gaincol='green'; losscol='red';ampcol="darkgreen";dlcol="darkred": Colors used for gain, loss (bars) and amplifications, double loss (tick marks).
+     build='GRCh37': build of humun genome used for determining positions of centromeres}
+     \item{plot.summary}{Create a plot summarizing the call probabilities of all samples}
+     \item{frequencyPlotCalls}{Create a frequency plot summarizing the calls of all samples}
     }
 
-   See \code{\link[Biobase:class.eSet]{eSet}} for derived methods.   
+   See \code{\link[Biobase]{eSet}} for derived methods.   
 }
 
 \author{Sjoerd Vosse}
 
 \seealso{
-  \code{\link[Biobase:class.eSet]{eSet-class}}, \code{\link{cghRaw-class}}, \code{\link{cghSeg-class}}
+  \code{\link[Biobase]{eSet-class}}, \code{\link{cghRaw-class}}, \code{\link{cghSeg-class}}
 }
 
 \examples{
+# create an instance of cghCall
+new("cghCall")
 
-	# create an instance of cghCall
-	new("cghCall")
-	
-	# load an instance of cghCall
-	data(WiltingCalled)
-  
-  # plot the first sample
-  plot(WiltingCalled[,1])
-  
-  # plot the first chromosome of the first sample
-  plot(WiltingCalled[chromosomes(WiltingCalled)==1,1])
+# create an instance of cghCall through \code{\link{ExpandCGHcall}}
+\dontrun{
+   data(Wilting)
+   rawcgh <- make_cghSeg(Wilting)
+   normalized <- normalize(rawcgh)
+   segmented <- segmentData(normalized)
+   perc.tumor <- rep(0.75, 3)
+   listcalled <- CGHcall(segmented,cellularity=perc.tumor)
+   called <- ExpandCGHcall(listcalled,segmented)
 
-  # get the copynumber values of the third and fourth sample
-  log2ratios <- copynumber(WiltingCalled[,3:4])
+   # plot the first sample. Default only every 10th log2-ratio is plotted (dotres=10). Adjust using dotres= option below. 
+   plot(called[,1])
+   # plot the first chromosome of the first sample
+   plot(called[chromosomes(called)==1,1])
 
-  # get the names of the samples
-  sampleNames(WiltingCalled)
+   # get the copynumber values of the third and fourth sample
+   log2ratios <- copynumber(called[,3:4])
 
-  # get the names of the array elements
-  featureNames(WiltingCalled)
+   # get the names of the samples
+   sampleNames(called)
 
+   # get the names of the array elements
+   featureNames(called)
+}
 }
 \keyword{classes}

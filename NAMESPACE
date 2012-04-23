@@ -7,7 +7,7 @@ S3method(plot, cghSeg)
 S3method(plot, cghCall)
 S3method(plot, cghRegions)
 
-export(cghRaw)
+export(make_cghRaw)
 
 exportClasses(cghRaw, cghSeg, cghCall, cghRegions)
 
