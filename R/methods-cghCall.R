@@ -220,8 +220,8 @@ function(x, main='Frequency Plot', gaincol='blue', losscol='red', misscol=NA, bu
 
 
 
-setMethod("summaryPlot", signature(x="cghCall", y="missing"),
-function (x, y, main='Summary Plot', gaincol='blue', losscol='red', misscol=NA, build='GRCh37',... )
+summaryPlot <- 
+function (x, main='Summary Plot', gaincol='blue', losscol='red', misscol=NA, build='GRCh37',... )
 {
   chrom <- chromosomes(x)
   pos <- bpstart(x)
@@ -273,7 +273,7 @@ function (x, y, main='Summary Plot', gaincol='blue', losscol='red', misscol=NA, 
     str <- paste(str, round(probe / 1000), ' kbp', sep='')
   }
   mtext(str, side=3, line=0, adj=0)
-})
+}
 
 
 setMethod("chromosomes", "cghCall", function(object) pData(featureData(object))[,"Chromosome"])

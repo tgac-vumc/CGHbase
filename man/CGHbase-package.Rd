@@ -9,7 +9,7 @@
 	Main infrastructural classes: \code{\link{cghRaw}}, \code{\link{cghSeg}}, \code{\link{cghCall}}.
 	Full help on methods and associated functions is available from withing class help pages.
 	
-	Attached data sets: \code{\link{WiltingData}}, \code{\link{WiltingRaw}}, \code{\link{WiltingNorm}}, \code{\link{WiltingSeg}}, \code{\link{WiltingCalled}}.
+	Attached data sets: \code{\link{Wilting}}, \code{\link{WiltingRaw}}, \code{\link{WiltingNorm}}, \code{\link{WiltingSeg}}, \code{\link{WiltingCalled}}.
 	
 }
 \author{Sjoerd Vosse <sjoerdvos@yahoo.com>}

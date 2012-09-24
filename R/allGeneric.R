@@ -16,7 +16,7 @@ setGeneric("segmented<-",   function(object, value) standardGeneric("segmented<-
 ### cghCall
 
 setGeneric("plot.cghCall",  function(x, y, ...)     standardGeneric("plot.cghCall"))
-setGeneric("summaryPlot",   function(x, y, ...)     standardGeneric("summaryPlot"))
+#setGeneric("summaryPlot",   function(x, y, ...)     standardGeneric("summaryPlot"))
 setGeneric("calls",         function(object)        standardGeneric("calls"))
 setGeneric("calls<-",       function(object, value) standardGeneric("calls<-"))
 setGeneric("probdloss",      function(object) standardGeneric("probdloss"))

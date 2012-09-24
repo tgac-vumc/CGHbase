@@ -5,11 +5,15 @@
   This function creates a summary plot for aCGH profiles.
 }
 \usage{
-	summaryPlot(x, y, ...)
+	summaryPlot(x,main='Summary Plot', gaincol='blue', losscol='red', misscol=NA, build='GRCh37', ...)
 }
 \arguments{
-  \item{x}{ An object of class \code{\link{cghCall}}.}
-  \item{y}{ This argument is not used and should be missing. }
+   \item{x}{An object of class \code{\link{cghCall}}.}
+  \item{main}{Title of plot}
+  \item{gaincol}{Color to use for gains}
+  \item{losscol}{Color to use for losses}
+  \item{misscol}{Missings}
+  \item{build}{Build of Humane Genome.Either \code{GRCh37}, \code{GRCh36}, \code{GRCh35} or \code{GRCh34}}
   \item{\dots}{ Arguments \code{plot}. }
 }
 \details{
@@ -31,7 +35,7 @@
    normalized <- normalize(rawcgh)
    segmented <- segmentData(normalized)
    called <- CGHcall(segmented,cellularity= rep(0.75, 3))
-   plot.summary(called)
+   summaryPlot(called)
    }
 }
 \keyword{ misc }

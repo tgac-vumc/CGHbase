@@ -12,7 +12,7 @@ export(make_cghRaw)
 exportClasses(cghRaw, cghSeg, cghCall, cghRegions)
 
 exportMethods(initialize, plot.cghRaw, plot.cghSeg, 
-	      plot.cghCall, plot.cghRegions, summaryPlot,
+	      plot.cghCall, plot.cghRegions,
 	      frequencyPlot, chromosomes, bpstart, bpend,
 	      avedist, nclone, copynumber, segmented, calls,
 	      regions, probloss, probnorm, probgain, probamp)

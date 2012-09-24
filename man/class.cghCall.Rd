@@ -72,7 +72,7 @@
   }
 
   An object of class \code{cghCall} is generally obtained as output
-  from \code{\link{CGHcall}}.
+  from \code{\link[CGHcall]{CGHcall}}.
 
 }
 \section{Slots}{

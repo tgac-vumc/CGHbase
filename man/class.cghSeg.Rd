@@ -45,7 +45,7 @@
   }
 
   An object of class \code{cghSeg} is generally obtained as output
-  from \code{\link{segmentData}}.
+  from \code{\link[CGHcall]{segmentData}}.
 
 }
 \section{Slots}{
