@@ -1,7 +1,7 @@
 Package: CGHbase
 Type: Package
 Title: CGHbase: Base functions and classes for arrayCGH data analysis.
-Version: 1.30.0
+Version: 1.31.0
 Date: 2012-09-24
 Author: Sjoerd Vosse, Mark van de Wiel
 Maintainer: Mark van de Wiel <mark.vdwiel@vumc.nl>
