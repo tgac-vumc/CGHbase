@@ -68,8 +68,8 @@
 
 .getCentromere <- function(build) {
     build <- as.integer(gsub('[^0-9]', '', build))
-    centromere <- matrix(NA, 23, 2);
-    if (build == 34 || build == 16) {
+    centromere <- matrix(NA, 24, 2);
+    if (build == 34 || build == 16) { # NCBI34 / hg16
         centromere[1,] <- c(120093537, 122333537)
         centromere[2,] <- c(91810927, 94810927)
         centromere[3,] <- c(90425755, 93325755)
@@ -93,8 +93,8 @@
         centromere[21,] <- c(10260000, 13260000)
         centromere[22,] <- c(11330000, 14330000)
         centromere[23,] <- c(57548803, 60548803)
-        # centromere[24,] <- c(9757849, 12757849)
-    } else if (build == 35 || build == 17) {
+        centromere[24,] <- c(9757849, 12757849)
+    } else if (build == 35 || build == 17) { # NCBI35 / hg17
         centromere[1,] <- c(121147476, 123387476)
         centromere[2,] <- c(91748045, 94748045)
         centromere[3,] <- c(90587544, 93487544)
@@ -118,8 +118,8 @@
         centromere[21,] <- c(10260000, 13260000)
         centromere[22,] <- c(11330000, 14330000)
         centromere[23,] <- c(58465033, 61465033)
-        # centromere[24,] <- c(11237315, 12237315)
-    } else if (build == 36 || build == 18) {
+        centromere[24,] <- c(11237315, 12237315)
+    } else if (build == 36 || build == 18) { # NCBI36 / hg18
         centromere[1,] <- c(121236957, 123476957)
         centromere[2,] <- c(91689898, 94689898)
         centromere[3,] <- c(90587544, 93487544)
@@ -143,7 +143,9 @@
         centromere[21,] <- c(10260000, 13260000)
         centromere[22,] <- c(11330000, 14330000)
         centromere[23,] <- c(58598737, 61598737)
-    } else { # 37 / 19
+        centromere[24,] <- c(11253954, 11653954)
+        # centromere[24,] <- c(12208578, 12308578)
+    } else { # GRCh37 / hg19
         centromere[1,] <- c(121535434, 124535434)
         centromere[2,] <- c(92326171, 95326171)
         centromere[3,] <- c(90504854, 93504854)
@@ -167,7 +169,7 @@
         centromere[21,] <- c(11288129, 14288129)
         centromere[22,] <- c(13000000, 16000000)
         centromere[23,] <- c(58632012, 61632012)
-        # centromere[24,] <- c(10104553, 13104553)
+        centromere[24,] <- c(10104553, 13104553)
     }
     centromere <- apply(centromere, 1, mean);
     return(centromere);
