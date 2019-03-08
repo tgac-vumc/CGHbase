@@ -170,7 +170,7 @@
         centromere[22,] <- c(13000000, 16000000)
         centromere[23,] <- c(58632012, 61632012)
         centromere[24,] <- c(10104553, 13104553)
-    } if (build == 38) { # hg38
+    } else if (build == 38) { # hg38
         centromere[1, ] <- (121700000, 125100000)
         centromere[2, ] <- (91800000, 96000000)
         centromere[3, ] <- (87800000, 94000000)
